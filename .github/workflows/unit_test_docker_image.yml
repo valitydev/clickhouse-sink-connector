@@ -23,14 +23,8 @@ jobs:
     - name: Run Unit tests
       working-directory: sink-connector
       run: mvn test -Dgroups=IntegrationTest --file pom.xml
-    - name: Login to Docker Hub
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Build the Docker image
-      working-directory: sink-connector
-      run: docker build . --file docker/Dockerfile-sink-on-debezium-base-image --tag altinity/clickhouse-sink-connector:$(date +%F)
-    - name: Push docker image to dockerhub
-      working-directory: sink-connector
-      run: docker push altinity/clickhouse-sink-connector:$(date +%F)
+    - uses: valitydev/action-deploy-docker@v2
+        with:
+          registry-username: ${{ github.actor }}
+          registry-access-token: ${{ secrets.GITHUB_TOKEN }}
+          platforms: linux/amd64,linux/arm64
