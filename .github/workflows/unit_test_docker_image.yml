@@ -21,7 +21,7 @@ jobs:
 
     - name: Build with Maven
       working-directory: sink-connector-lightweight
-      run: mvn -B package --file pom.xml
+      run: mvn -B package -DskipTests=true --file pom.xml
 
     - name: Run Unit tests
       working-directory: sink-connector-lightweight
