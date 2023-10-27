@@ -20,16 +20,16 @@ jobs:
         cache: maven
 
     - name: Build with Maven
-      working-directory: sink-connector
+      working-directory: sink-connector-lightweight
       run: mvn -B package --file pom.xml
 
     - name: Run Unit tests
-      working-directory: sink-connector
+      working-directory: sink-connector-lightweight
       run: mvn test -Dgroups=IntegrationTest --file pom.xml
 
     - uses: valitydev/action-deploy-docker@v2
       with:
         registry-username: ${{ github.actor }}
-        working-directory: sink-connector
+        dockerfile-path: sink-connector-lightweight/Dockerfile
         registry-access-token: ${{ secrets.GITHUB_TOKEN }}
         platforms: linux/amd64,linux/arm64
