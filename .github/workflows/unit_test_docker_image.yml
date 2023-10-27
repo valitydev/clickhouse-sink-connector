@@ -30,5 +30,6 @@ jobs:
     - uses: valitydev/action-deploy-docker@v2
       with:
         registry-username: ${{ github.actor }}
+        working-directory: sink-connector
         registry-access-token: ${{ secrets.GITHUB_TOKEN }}
         platforms: linux/amd64,linux/arm64
